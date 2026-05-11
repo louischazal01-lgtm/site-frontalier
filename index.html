@@ -720,6 +720,9 @@
       color: var(--text);
     }
     .footer-brand .dot { color: var(--red); }
+    .footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8125rem; color: var(--muted-2); text-decoration: none; }
+    .footer-links a:hover { color: var(--red); }
     footer small { font-size: 0.8125rem; color: var(--muted-2); }
 
     /* ── Reveal ─────────────────────────────────────────────── */
@@ -1037,6 +1040,11 @@
   <footer>
     <div class="footer-inner">
       <span class="footer-brand">R<span class="dot">.</span>E Recrutement</span>
+      <div class="footer-links">
+        <a href="/mentions-legales.html">Mentions légales</a>
+        <a href="/cgv.html">CGV</a>
+        <a href="/politique-confidentialite.html">Politique de confidentialité</a>
+      </div>
       <small>© 2025 Raphaël Esparon · Tous droits réservés</small>
     </div>
   </footer>
