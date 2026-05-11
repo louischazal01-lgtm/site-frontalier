@@ -240,6 +240,48 @@
       line-height: 1.5;
     }
 
+    /* ── Qui suis-je ────────────────────────────────────────── */
+    .about { background: var(--bg-alt); border-top: 1px solid var(--border); }
+    .about-inner {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .about-photo {
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(26,92,56,.13);
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .about-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 0.875rem;
+    }
+    .about-text p {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    @media (max-width: 600px) {
+      .about-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
     /* ── Story / credibility ────────────────────────────────── */
     .story { background: var(--bg-alt); }
     .story h2 {
@@ -757,6 +799,22 @@
       <p class="pain-close reveal d2">
         Et tu ne comprends pas pourquoi, alors que ton profil est solide.
       </p>
+    </div>
+  </section>
+
+  <!-- ── Qui suis-je ──────────────────────────────────────── -->
+  <section class="about">
+    <div class="center-wide">
+      <div class="about-inner">
+        <div class="about-photo reveal">
+          <img src="photo.jpg" alt="Raphaël Esparon">
+        </div>
+        <div class="about-text">
+          <span class="label reveal">Votre consultant</span>
+          <h2 class="reveal d1">Raphaël Esparon</h2>
+          <p class="reveal d2">Consultant emploi frontalier depuis 5 ans, j'ai accompagné plus de 500 Français à décrocher un poste en Suisse romande. Ingénieurs, commerciaux, profils RH, cadres — j'ai vu ce qui fonctionne vraiment sur ce marché, et ce qui coûte des candidatures.</p>
+        </div>
+      </div>
     </div>
   </section>
 
