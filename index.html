@@ -342,6 +342,12 @@
       gap: 1.25rem;
       align-items: start;
     }
+    .offers-grid--single {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .offer-card {
       background: #fff;
       padding: 2.25rem 2rem;
@@ -802,9 +808,8 @@
   <section class="offers">
     <div class="center-wide">
       <h2 class="reveal">Choisis ta formule.</h2>
-      <p class="offers-intro reveal d1">Deux façons de travailler ensemble , selon où tu en es.</p>
-      <div class="offers-grid">
-        <!-- Card 1 -->
+      <p class="offers-intro reveal d1">Une façon simple de démarrer.</p>
+      <div class="offers-grid offers-grid--single">
         <div class="offer-card reveal">
           <p class="offer-tag">Point d'entrée</p>
           <h3 class="offer-name">Session Diagnostic</h3>
@@ -816,20 +821,10 @@
             <li>Estimation de ton salaire cible</li>
             <li>Plan d'action immédiat et personnalisé</li>
           </ul>
+          <p class="offer-price"><span class="offer-amount">40</span><span class="offer-currency">CHF</span></p>
           <a href="https://calendly.com/esprraphael/strategie-de-reussite-en-tant-que-frontalier-suisse"
              target="_blank" rel="noopener" class="btn btn-outline">
             Réserver ma session →
-          </a>
-        </div>
-        <!-- Card 2 -->
-        <div class="offer-card featured reveal d1">
-          <span class="offer-badge">Accompagnement complet</span>
-          <p class="offer-tag">Pour aller jusqu'au bout</p>
-          <h3 class="offer-name">Première Porte</h3>
-          <p class="offer-sub">Du diagnostic au premier entretien en 3 semaines , CV suisse, méthode complète, suivi hebdomadaire et préparation entretien inclus.</p>
-          <a href="https://calendly.com/esprraphael/strategie-de-reussite-en-tant-que-frontalier-suisse"
-             target="_blank" rel="noopener" class="btn btn-red" style="margin-top:auto;">
-            En savoir plus →
           </a>
         </div>
       </div>
