@@ -3,715 +3,506 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Le guide gratuit — Décrocher un poste en Suisse romande</title>
-  <meta name="description" content="Reçois le guide complet pour décrocher ton premier poste en Suisse romande. 500+ Français accompagnés.">
-  <meta property="og:title" content="Le guide gratuit — Décrocher un poste en Suisse romande" />
-  <meta property="og:description" content="Ce que personne ne t'explique sur le marché suisse. Reçois le guide directement dans ta boîte mail." />
-  <meta property="og:image" content="https://site-frontalier.vercel.app/photo.jpg" />
+  <title>Décrocher un poste en Suisse — Guide gratuit</title>
+  <meta name="description" content="Reçois le guide complet pour décrocher ton premier poste en Suisse romande.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --green:      #1A5C38;
       --green-dark: #143F28;
-      --green-dim:  #EFF6F2;
-      --text:       #111111;
+      --green-light:#E8F2EC;
+      --text:       #0F1A14;
       --muted:      #52605C;
-      --muted-2:    #8A9490;
-      --border:     #DEDEDB;
+      --border:     #D8E0DC;
       --bg:         #FFFFFF;
-      --bg-alt:     #F4F4F2;
-      --gold:       #C8900A;
       --font:       'Outfit', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
+
     body {
+      font-family: var(--font);
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font);
-      font-size: 1rem;
-      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    /* ── Layout ── */
-    .wrap {
-      max-width: 540px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    .wrap-wide {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--green);
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+      z-index: 100;
     }
 
-    /* ── Header ── */
-    header {
-      padding: 1.5rem 0;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
+    /* ── Nav ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      z-index: 50;
     }
-    .brand {
-      font-size: 0.9375rem;
+    .nav-brand {
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text);
       letter-spacing: 0.01em;
     }
-    .brand-dot { color: var(--green); }
+    .nav-brand span { color: var(--green); }
+    .nav-step {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
 
-    /* ── Hero ── */
-    .hero {
-      padding: clamp(3.5rem, 9vw, 5.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+    /* ── Slider ── */
+    .slider {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Step ── */
+    .step {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease, transform .35s cubic-bezier(.4,0,.2,1);
+      transform: translateY(32px);
+    }
+    .step.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .step.exit {
+      opacity: 0;
+      transform: translateY(-32px);
+      pointer-events: none;
+    }
+
+    .step-inner {
+      width: 100%;
+      max-width: 520px;
       text-align: center;
     }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+
+    .step-num {
+      display: inline-block;
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--green);
-      background: var(--green-dim);
-      border: 1px solid rgba(26,92,56,.15);
-      padding: 0.35rem 0.875rem;
-      border-radius: 100px;
       margin-bottom: 1.5rem;
+      background: var(--green-light);
+      padding: 0.3rem 0.875rem;
+      border-radius: 100px;
     }
-    .hero h1 {
-      font-size: clamp(2rem, 6vw, 3rem);
-      font-weight: 800;
-      line-height: 1.15;
-      color: var(--text);
-      letter-spacing: -0.02em;
-      margin-bottom: 1.125rem;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--green);
-    }
-    .hero-sub {
-      font-size: 1.0625rem;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 2.5rem;
-      max-width: 460px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .hero-sub strong { color: var(--text); font-weight: 500; }
 
-    /* ── Form ── */
-    .form-block {
-      background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: left;
-      box-shadow: 0 4px 24px rgba(26,92,56,.07);
-    }
-    .form-block-title {
-      font-size: 1.0625rem;
+    .step-q {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
       font-weight: 700;
+      line-height: 1.2;
       color: var(--text);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.625rem;
+      letter-spacing: -0.02em;
     }
-    .form-block-sub {
-      font-size: 0.875rem;
-      color: var(--muted);
-      margin-bottom: 1.375rem;
-    }
-    .form-row { display: flex; gap: 0.75rem; }
-    .form-field { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
-    .form-label {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .form-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: var(--font);
+
+    .step-hint {
       font-size: 0.9375rem;
-      color: var(--text);
-      background: var(--bg-alt);
-      transition: border-color .2s;
-      outline: none;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.5;
     }
-    .form-input:focus { border-color: var(--green); background: #fff; }
-    .form-input::placeholder { color: var(--muted-2); }
-    .form-submit {
+
+    /* ── Text input ── */
+    .step-input {
       width: 100%;
-      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      font-family: var(--font);
+      font-size: 1.125rem;
+      color: var(--text);
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: border-color .2s;
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .step-input:focus { border-color: var(--green); }
+    .step-input::placeholder { color: #B0BDBA; }
+
+    /* ── Choice buttons ── */
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .choice-btn {
+      width: 100%;
       padding: 0.9375rem 1.5rem;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      transition: border-color .15s, background .15s, color .15s;
+    }
+    .choice-btn:hover { border-color: var(--green); background: var(--green-light); }
+    .choice-btn.selected { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
+    .choice-key {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: var(--border);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background .15s, color .15s;
+    }
+    .choice-btn.selected .choice-key { background: var(--green); color: #fff; }
+
+    /* ── Continue button ── */
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9375rem 2rem;
       background: var(--green);
       color: #fff;
       font-family: var(--font);
       font-size: 1rem;
       font-weight: 700;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background .2s, transform .15s;
+      transition: background .2s, transform .15s, opacity .2s;
       letter-spacing: 0.01em;
     }
-    .form-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
-    .form-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
-    .form-legal {
-      font-size: 0.75rem;
-      color: var(--muted-2);
-      text-align: center;
-      margin-top: 0.875rem;
-      line-height: 1.5;
-    }
+    .btn-next:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+    .btn-next svg { transition: transform .2s; }
+    .btn-next:hover svg { transform: translateX(3px); }
 
-    /* ── Thank you state ── */
-    .thankyou {
-      display: none;
-      text-align: center;
-      padding: 1.5rem 0;
-    }
+    /* ── Thank you ── */
     .thankyou-icon {
-      width: 52px;
-      height: 52px;
-      background: var(--green-dim);
+      width: 64px;
+      height: 64px;
+      background: var(--green-light);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1rem;
-      font-size: 1.375rem;
+      margin: 0 auto 1.5rem;
+      font-size: 1.75rem;
     }
-    .thankyou h3 {
-      font-size: 1.25rem;
+    .thankyou h2 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
     }
     .thankyou p {
-      font-size: 0.9375rem;
-      color: var(--muted);
-    }
-
-    /* ── Trust bar ── */
-    .trust {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: 0.8125rem;
-      color: var(--muted-2);
-    }
-    .trust-item::before {
-      content: '✓';
-      color: var(--green);
-      font-weight: 700;
-      font-size: 0.75rem;
-    }
-
-    /* ── What's inside ── */
-    .inside {
-      padding: clamp(2.5rem, 7vw, 4.5rem) 0;
-      border-top: 1px solid var(--border);
-    }
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 0.75rem;
-    }
-    .inside h2 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.25;
-      margin-bottom: 0.625rem;
-    }
-    .inside-sub {
       font-size: 1rem;
       color: var(--muted);
-      margin-bottom: 2rem;
-    }
-    .inside-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .inside-item {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    .inside-num {
-      flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      background: var(--green-dim);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--green);
-      margin-top: 0.1em;
-    }
-    .inside-text strong {
-      display: block;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.125rem;
-    }
-    .inside-text span {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    /* ── Social proof ── */
-    .proof {
-      background: var(--bg-alt);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: clamp(2.5rem, 7vw, 4.5rem) 0;
-    }
-    .proof-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .proof-header h2 {
-      font-size: clamp(1.375rem, 3.5vw, 1.875rem);
-      font-weight: 700;
-      color: var(--text);
-    }
-    .proof-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .proof-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 12px rgba(0,0,0,.05);
-    }
-    .proof-stars {
-      color: var(--gold);
-      font-size: 0.8125rem;
-      margin-bottom: 0.75rem;
-    }
-    .proof-text {
-      font-size: 0.9rem;
-      color: var(--muted);
-      font-style: italic;
       line-height: 1.65;
-      margin-bottom: 1.25rem;
-    }
-    .proof-author {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .proof-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--green-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--green);
-      flex-shrink: 0;
-    }
-    .proof-name {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .proof-role {
-      font-size: 0.75rem;
-      color: var(--muted-2);
-    }
-
-    /* ── Stats ── */
-    .stats {
-      padding: clamp(2rem, 5vw, 3.5rem) 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .stats-grid {
-      display: flex;
-      justify-content: center;
-      gap: clamp(2rem, 6vw, 5rem);
-      flex-wrap: wrap;
-      text-align: center;
-    }
-    .stat-num {
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 800;
-      color: var(--green);
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-    .stat-label {
-      font-size: 0.875rem;
-      color: var(--muted);
-    }
-
-    /* ── About ── */
-    .about {
-      padding: clamp(2.5rem, 7vw, 4.5rem) 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .about-inner {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-    .about-photo {
-      flex-shrink: 0;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    .about-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-    }
-    .about-text p {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-    .about-text strong { color: var(--text); font-weight: 600; }
-
-    /* ── Final CTA ── */
-    .final {
-      padding: clamp(3rem, 8vw, 5rem) 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-    .final-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted-2);
-      margin-bottom: 0.875rem;
-    }
-    .final h2 {
-      font-size: clamp(1.5rem, 4vw, 2.125rem);
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.25;
-      margin-bottom: 0.625rem;
-    }
-    .final-sub {
-      font-size: 0.9375rem;
-      color: var(--muted);
       margin-bottom: 2rem;
     }
-    .btn-cta {
-      display: inline-block;
-      padding: 1rem 2.25rem;
+    .btn-calendly {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
       background: var(--green);
       color: #fff;
       font-family: var(--font);
       font-size: 1rem;
       font-weight: 700;
+      border-radius: 10px;
       text-decoration: none;
-      border-radius: 8px;
       transition: background .2s, transform .15s;
-      letter-spacing: 0.01em;
     }
-    .btn-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
-    .final-note {
+    .btn-calendly:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-skip {
+      display: block;
       margin-top: 1rem;
-      font-size: 0.8125rem;
-      color: var(--muted-2);
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--bg-alt);
-      border-top: 1px solid var(--border);
-      padding: 1.25rem 0;
-      text-align: center;
-    }
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.5rem;
-    }
-    .footer-links a {
-      font-size: 0.8125rem;
-      color: var(--muted-2);
+      font-size: 0.875rem;
+      color: var(--muted);
       text-decoration: none;
+      cursor: pointer;
     }
-    .footer-links a:hover { color: var(--green); }
-    footer small { font-size: 0.75rem; color: var(--muted-2); }
-
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      .form-row { flex-direction: column; }
-      .proof-grid { grid-template-columns: 1fr; }
-      .about-inner { flex-direction: column; text-align: center; }
-    }
+    .btn-skip:hover { color: var(--text); }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="wrap">
-      <span class="brand">R<span class="brand-dot">.</span>E Recrutement</span>
+  <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+
+  <nav class="nav">
+    <span class="nav-brand">R<span>.</span>E Recrutement</span>
+    <span class="nav-step" id="nav-step"></span>
+  </nav>
+
+  <div class="slider" id="slider">
+
+    <!-- STEP 1 — Prénom -->
+    <div class="step active" id="step-1">
+      <div class="step-inner">
+        <span class="step-num">Guide gratuit</span>
+        <h1 class="step-q">Comment tu t'appelles ?</h1>
+        <p class="step-hint">Juste ton prénom pour personnaliser le guide.</p>
+        <input class="step-input" id="input-prenom" type="text" placeholder="Thomas" autocomplete="given-name" />
+        <br>
+        <button class="btn-next" id="btn-1" onclick="nextStep(1)">
+          Continuer
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
-  </header>
 
-  <!-- Hero + Form -->
-  <section class="hero">
-    <div class="wrap">
-      <div class="badge">🎁 Guide gratuit</div>
-      <h1>Ce que personne ne t'explique sur<br><em>le marché du travail suisse</em></h1>
-      <p class="hero-sub">
-        Reçois <strong>le guide complet</strong> pour comprendre les codes du marché suisse et postuler efficacement depuis la France.
-      </p>
-
-      <!-- Form -->
-      <div class="form-block" id="form-block">
-        <p class="form-block-title">Reçois le guide gratuitement</p>
-        <p class="form-block-sub">Dans ta boîte mail en moins de 2 minutes.</p>
-        <form id="subscribe-form" novalidate>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label" for="f-prenom">Prénom</label>
-              <input class="form-input" id="f-prenom" type="text" placeholder="Thomas" autocomplete="given-name" />
-            </div>
-            <div class="form-field">
-              <label class="form-label" for="f-email">Email <span style="color:var(--green)">*</span></label>
-              <input class="form-input" id="f-email" type="email" placeholder="thomas@gmail.com" autocomplete="email" required />
-            </div>
-          </div>
-          <button class="form-submit" type="submit" id="form-btn">
-            Recevoir le guide gratuit →
+    <!-- STEP 2 — Situation -->
+    <div class="step" id="step-2">
+      <div class="step-inner">
+        <span class="step-num">Étape 2 sur 4</span>
+        <h2 class="step-q">Ta situation actuelle ?</h2>
+        <p class="step-hint">Pour t'envoyer les informations les plus adaptées.</p>
+        <div class="choices" id="choices-situation">
+          <button class="choice-btn" onclick="selectChoice('situation', this, 'recherche')">
+            <span class="choice-key">A</span> En recherche active d'un poste en Suisse
           </button>
-          <p class="form-legal">Zéro spam · Désinscription en 1 clic · Tes données restent privées</p>
-        </form>
-        <!-- Thank you -->
-        <div class="thankyou" id="thankyou">
+          <button class="choice-btn" onclick="selectChoice('situation', this, 'emploi-france')">
+            <span class="choice-key">B</span> En CDI en France, j'explore
+          </button>
+          <button class="choice-btn" onclick="selectChoice('situation', this, 'curieux')">
+            <span class="choice-key">C</span> Juste curieux pour l'instant
+          </button>
+        </div>
+        <button class="btn-next" id="btn-2" onclick="nextStep(2)" disabled>
+          Continuer
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — Région -->
+    <div class="step" id="step-3">
+      <div class="step-inner">
+        <span class="step-num">Étape 3 sur 4</span>
+        <h2 class="step-q">Tu habites dans quelle région ?</h2>
+        <p class="step-hint">Les règles frontalières varient selon ta zone.</p>
+        <div class="choices" id="choices-region">
+          <button class="choice-btn" onclick="selectChoice('region', this, 'haute-savoie')">
+            <span class="choice-key">A</span> Haute-Savoie / Ain
+          </button>
+          <button class="choice-btn" onclick="selectChoice('region', this, 'doubs')">
+            <span class="choice-key">B</span> Doubs / Jura
+          </button>
+          <button class="choice-btn" onclick="selectChoice('region', this, 'alsace')">
+            <span class="choice-key">C</span> Alsace / Moselle
+          </button>
+          <button class="choice-btn" onclick="selectChoice('region', this, 'autre')">
+            <span class="choice-key">D</span> Autre région / Je ne sais pas encore
+          </button>
+        </div>
+        <button class="btn-next" id="btn-3" onclick="nextStep(3)" disabled>
+          Continuer
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4 — Email -->
+    <div class="step" id="step-4">
+      <div class="step-inner">
+        <span class="step-num">Dernière étape</span>
+        <h2 class="step-q" id="step4-title">Où t'envoyer le guide ?</h2>
+        <p class="step-hint">Tu le reçois immédiatement dans ta boîte mail.</p>
+        <input class="step-input" id="input-email" type="email" placeholder="thomas@gmail.com" autocomplete="email" />
+        <br>
+        <button class="btn-next" id="btn-4" onclick="submitForm()">
+          Recevoir le guide →
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.875rem;">Zéro spam · Désinscription en 1 clic</p>
+      </div>
+    </div>
+
+    <!-- STEP 5 — Thank you -->
+    <div class="step" id="step-5">
+      <div class="step-inner">
+        <div class="thankyou">
           <div class="thankyou-icon">✓</div>
-          <h3>C'est dans ta boîte !</h3>
-          <p>Vérifie tes emails (et le dossier spam si besoin).<br>Le guide arrive dans les prochaines minutes.</p>
-        </div>
-      </div>
-
-      <div class="trust">
-        <span class="trust-item">500+ frontaliers accompagnés</span>
-        <span class="trust-item">Gratuit, sans engagement</span>
-        <span class="trust-item">Résultats en 2 à 6 semaines</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- What's inside -->
-  <section class="inside">
-    <div class="wrap">
-      <p class="section-label">Dans le guide</p>
-      <h2>Ce que tu vas apprendre</h2>
-      <p class="inside-sub">Des informations concrètes que 90% des candidats ne connaissent pas.</p>
-      <ul class="inside-list">
-        <li class="inside-item">
-          <div class="inside-num">01</div>
-          <div class="inside-text">
-            <strong>Les vrais salaires par métier en Suisse romande</strong>
-            <span>Ce que les annonces ne disent pas — et comment négocier au bon niveau dès le départ.</span>
-          </div>
-        </li>
-        <li class="inside-item">
-          <div class="inside-num">02</div>
-          <div class="inside-text">
-            <strong>Pourquoi ton CV français est éliminé avant d'être lu</strong>
-            <span>Les 5 différences entre un CV efficace en France et un dossier qui passe chez un recruteur suisse.</span>
-          </div>
-        </li>
-        <li class="inside-item">
-          <div class="inside-num">03</div>
-          <div class="inside-text">
-            <strong>Le Permis G expliqué en clair</strong>
-            <span>Qui y a droit, comment ça fonctionne, ce que ton futur employeur doit faire à ta place.</span>
-          </div>
-        </li>
-        <li class="inside-item">
-          <div class="inside-num">04</div>
-          <div class="inside-text">
-            <strong>Les secteurs qui recrutent vraiment des frontaliers</strong>
-            <span>Où postuler en priorité selon ton profil — et les zones géographiques les plus accessibles.</span>
-          </div>
-        </li>
-        <li class="inside-item">
-          <div class="inside-num">05</div>
-          <div class="inside-text">
-            <strong>Le plan d'action pour les 2 prochaines semaines</strong>
-            <span>Étape par étape, ce que tu fais dès demain pour obtenir un premier entretien suisse.</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="stats">
-    <div class="wrap">
-      <div class="stats-grid">
-        <div>
-          <div class="stat-num">500+</div>
-          <div class="stat-label">Français accompagnés</div>
-        </div>
-        <div>
-          <div class="stat-num">5 ans</div>
-          <div class="stat-label">D'expertise frontalière</div>
-        </div>
-        <div>
-          <div class="stat-num">2–6</div>
-          <div class="stat-label">Semaines pour un 1er entretien</div>
+          <h2 id="ty-title">C'est dans ta boîte !</h2>
+          <p id="ty-sub">Vérifie tes emails (et le dossier spam).<br>Le guide arrive dans les prochaines minutes.</p>
+          <p style="font-size:0.875rem;color:var(--muted);margin-bottom:2rem;">Tu veux aller plus loin ? Réserve une session de 45 min avec moi pour un plan d'action personnalisé.</p>
+          <a href="https://calendly.com/esprraphael/strategie-de-reussite-en-tant-que-frontalier-suisse"
+             target="_blank" rel="noopener" class="btn-calendly">
+            Réserver ma session diagnostic — 40 CHF
+          </a>
+          <a class="btn-skip" href="https://site-frontalier.vercel.app">Non merci, le guide me suffit</a>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Testimonials -->
-  <section class="proof">
-    <div class="wrap-wide">
-      <div class="proof-header">
-        <h2>Ils ont franchi le pas.</h2>
-      </div>
-      <div class="proof-grid">
-        <div class="proof-card">
-          <div class="proof-stars">★★★★★</div>
-          <p class="proof-text">"J'avais postulé plus de 40 fois sans retour. Après avoir suivi les conseils de Raphaël, j'ai compris exactement ce qui bloquait. Trois semaines plus tard, j'avais mon premier entretien à Genève."</p>
-          <div class="proof-author">
-            <div class="proof-avatar">KB</div>
-            <div>
-              <div class="proof-name">Karim B.</div>
-              <div class="proof-role">Technicien automatisation · Annecy</div>
-            </div>
-          </div>
-        </div>
-        <div class="proof-card">
-          <div class="proof-stars">★★★★★</div>
-          <p class="proof-text">"Je ne savais même pas si j'étais éligible au Permis G. En appliquant la méthode, j'avais une réponse claire et un plan concret. C'est le meilleur investissement de ma recherche d'emploi."</p>
-          <div class="proof-author">
-            <div class="proof-avatar">LM</div>
-            <div>
-              <div class="proof-name">Lucie M.</div>
-              <div class="proof-role">Infirmière · Annemasse</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section class="about">
-    <div class="wrap">
-      <div class="about-inner">
-        <div class="about-photo">
-          <img src="photo.jpg" alt="Raphaël Esparon" />
-        </div>
-        <div class="about-text">
-          <p><strong>Raphaël Esparon</strong> — Consultant emploi frontalier depuis 5 ans. J'ai accompagné plus de 500 Français à décrocher un poste en Suisse romande. Ce guide, c'est ce que j'explique à chaque client lors de notre première session.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="final">
-    <div class="wrap">
-      <p class="final-label">Tu veux aller plus loin ?</p>
-      <h2>Une session de 45 min pour tout débloquer.</h2>
-      <p class="final-sub">Audit de ton profil · Plan d'action personnalisé · 40 CHF</p>
-      <a href="https://calendly.com/esprraphael/strategie-de-reussite-en-tant-que-frontalier-suisse"
-         target="_blank" rel="noopener" class="btn-cta">
-        Réserver ma session diagnostic →
-      </a>
-      <p class="final-note">45 min en visio · Annulation possible jusqu'à 24h avant</p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="wrap">
-      <div class="footer-links">
-        <a href="/mentions-legales.html">Mentions légales</a>
-        <a href="/cgv.html">CGV</a>
-        <a href="/politique-confidentialite.html">Confidentialité</a>
-      </div>
-      <small>© 2025 Raphaël Esparon · R.E Recrutement</small>
-    </div>
-  </footer>
+  </div>
 
   <script>
     const API = 'https://raphbrain.duckdns.org/api';
+    const TOTAL_STEPS = 4;
+    let current = 1;
+    const answers = { prenom: '', situation: '', region: '', email: '' };
 
-    document.getElementById('subscribe-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const email  = document.getElementById('f-email').value.trim();
-      const prenom = document.getElementById('f-prenom').value.trim();
-      if (!email) {
-        document.getElementById('f-email').focus();
+    // ── Progress ──
+    function updateProgress(step) {
+      const pct = ((step - 1) / TOTAL_STEPS) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+      if (step <= TOTAL_STEPS) {
+        document.getElementById('nav-step').textContent = step + ' / ' + TOTAL_STEPS;
+      } else {
+        document.getElementById('nav-step').textContent = '';
+      }
+    }
+
+    // ── Transition ──
+    function goTo(next) {
+      const curr = document.getElementById('step-' + current);
+      curr.classList.remove('active');
+      curr.classList.add('exit');
+      setTimeout(() => { curr.classList.remove('exit'); }, 400);
+      current = next;
+      updateProgress(next);
+      setTimeout(() => {
+        const nextEl = document.getElementById('step-' + next);
+        nextEl.classList.add('active');
+        // Auto-focus input if present
+        const inp = nextEl.querySelector('.step-input');
+        if (inp) inp.focus();
+      }, 60);
+    }
+
+    // ── Next step logic ──
+    function nextStep(step) {
+      if (step === 1) {
+        const val = document.getElementById('input-prenom').value.trim();
+        if (!val) { document.getElementById('input-prenom').focus(); return; }
+        answers.prenom = val;
+        // Personalise step 4 title
+        document.getElementById('step4-title').textContent = val + ', où t\'envoyer le guide ?';
+        document.getElementById('ty-title').textContent = 'C\'est parti, ' + val + ' !';
+        goTo(2);
+      } else if (step === 2) {
+        if (!answers.situation) return;
+        goTo(3);
+      } else if (step === 3) {
+        if (!answers.region) return;
+        goTo(4);
+      }
+    }
+
+    // ── Choice selection ──
+    function selectChoice(key, el, value) {
+      const group = el.closest('.choices');
+      group.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      answers[key] = value;
+      // Enable next button
+      const btnMap = { situation: 'btn-2', region: 'btn-3' };
+      if (btnMap[key]) document.getElementById(btnMap[key]).disabled = false;
+      // Auto-advance after short delay
+      setTimeout(() => {
+        if (key === 'situation') nextStep(2);
+        else if (key === 'region') nextStep(3);
+      }, 320);
+    }
+
+    // ── Submit ──
+    async function submitForm() {
+      const email = document.getElementById('input-email').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('input-email').focus();
         return;
       }
-      const btn = document.getElementById('form-btn');
+      answers.email = email;
+      const btn = document.getElementById('btn-4');
       btn.disabled = true;
-      btn.textContent = 'Envoi en cours...';
+      btn.innerHTML = 'Envoi en cours...';
       try {
-        const res = await fetch(API + '/subscribe', {
+        await fetch(API + '/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, prenom, source: 'guide-linkedin' }),
+          body: JSON.stringify({
+            email: answers.email,
+            prenom: answers.prenom,
+            source: 'guide-linkedin-' + answers.situation,
+          }),
         });
-        if (!res.ok) throw new Error('Erreur serveur');
-        // Show thank you
-        document.getElementById('subscribe-form').style.display = 'none';
-        document.getElementById('thankyou').style.display = 'block';
-        // Scroll to what's inside
-        setTimeout(() => {
-          document.querySelector('.inside').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 800);
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = 'Recevoir le guide gratuit →';
-        alert('Une erreur est survenue. Réessaie dans quelques secondes.');
+      } catch(e) { /* silent — on affiche quand même le merci */ }
+      // Progress to 100% then thank you
+      document.getElementById('progress-bar').style.width = '100%';
+      goTo(5);
+    }
+
+    // ── Keyboard nav ──
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (current === 1) nextStep(1);
+        else if (current === 4) submitForm();
+      }
+      // Keyboard shortcuts for choices (A, B, C, D)
+      if (current === 2) {
+        const map = { a: 0, b: 1, c: 2 };
+        const idx = map[e.key.toLowerCase()];
+        if (idx !== undefined) {
+          const btns = document.querySelectorAll('#choices-situation .choice-btn');
+          if (btns[idx]) btns[idx].click();
+        }
+      }
+      if (current === 3) {
+        const map = { a: 0, b: 1, c: 2, d: 3 };
+        const idx = map[e.key.toLowerCase()];
+        if (idx !== undefined) {
+          const btns = document.querySelectorAll('#choices-region .choice-btn');
+          if (btns[idx]) btns[idx].click();
+        }
       }
     });
+
+    // ── Init ──
+    updateProgress(1);
+    document.getElementById('input-prenom').focus();
   </script>
 
 </body>
