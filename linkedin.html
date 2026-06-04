@@ -4,506 +4,860 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Décrocher un poste en Suisse — Guide gratuit</title>
-  <meta name="description" content="Reçois le guide complet pour décrocher ton premier poste en Suisse romande.">
+  <meta name="description" content="Reçois le guide complet pour décrocher ton premier poste en Suisse romande. 500+ Français accompagnés.">
+  <meta property="og:title" content="Guide gratuit — Décrocher un poste en Suisse romande" />
+  <meta property="og:description" content="Ce que personne ne t'explique sur le marché suisse. Reçois le guide directement dans ta boîte mail." />
+  <meta property="og:image" content="https://site-frontalier.vercel.app/photo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --green:      #1A5C38;
-      --green-dark: #143F28;
-      --green-light:#E8F2EC;
-      --text:       #0F1A14;
-      --muted:      #52605C;
-      --border:     #D8E0DC;
-      --bg:         #FFFFFF;
-      --font:       'Outfit', sans-serif;
+      --green:       #1A5C38;
+      --green-dark:  #0F3B24;
+      --green-mid:   #246B43;
+      --green-light: #EAF3EE;
+      --green-glow:  rgba(26,92,56,.12);
+      --text:        #0D1A12;
+      --muted:       #4A5E53;
+      --subtle:      #8A9E94;
+      --border:      #D4DED8;
+      --border-focus:#1A5C38;
+      --bg:          #F8FAF9;
+      --surface:     #FFFFFF;
+      --font:        'Outfit', system-ui, sans-serif;
+      --radius:      14px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    html { height: 100%; }
 
     body {
       font-family: var(--font);
       background: var(--bg);
       color: var(--text);
-      -webkit-font-smoothing: antialiased;
+      height: 100%;
       overflow: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Progress bar ── */
-    .progress-bar {
+    /* ─── Background subtle grain ─── */
+    body::before {
+      content: '';
       position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      background: var(--green);
-      transition: width .4s cubic-bezier(.4,0,.2,1);
-      z-index: 100;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26,92,56,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(26,92,56,.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* ── Nav ── */
+    /* ─── Progress bar ─── */
+    .progress-wrap {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: rgba(26,92,56,.12);
+      z-index: 200;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), #34A065);
+      transition: width .5s cubic-bezier(.4,0,.2,1);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ─── Nav ─── */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
-      height: 56px;
-      z-index: 50;
+      z-index: 100;
+      background: rgba(248,250,249,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,222,216,.5);
     }
     .nav-brand {
-      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
       font-weight: 700;
       color: var(--text);
-      letter-spacing: 0.01em;
+      letter-spacing: -0.01em;
     }
-    .nav-brand span { color: var(--green); }
-    .nav-step {
+    .nav-dot { color: var(--green); }
+    .nav-badge {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 0.2rem 0.625rem;
+      border-radius: 100px;
+      border: 1px solid rgba(26,92,56,.15);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+    .nav-proof {
+      font-size: 0.8rem;
+      color: var(--subtle);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .nav-avatars {
+      display: flex;
+    }
+    .nav-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--bg);
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-left: -6px;
+    }
+    .nav-avatar:first-child { margin-left: 0; }
+    .nav-step-counter {
       font-size: 0.8125rem;
-      color: var(--muted);
       font-weight: 500;
+      color: var(--subtle);
       font-variant-numeric: tabular-nums;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
     }
 
-    /* ── Slider ── */
+    /* ─── Stage dots ─── */
+    .stage-dots {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+    .stage-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background .3s, width .3s;
+    }
+    .stage-dot.done  { background: var(--green); opacity: .5; }
+    .stage-dot.active{ background: var(--green); width: 20px; border-radius: 3px; }
+
+    /* ─── Slider container ─── */
     .slider {
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── Step ── */
+    /* ─── Steps ─── */
     .step {
       position: absolute;
       width: 100%;
+      padding: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity .35s ease, transform .35s cubic-bezier(.4,0,.2,1);
-      transform: translateY(32px);
+      transform: translateY(40px) scale(.98);
+      transition: opacity .4s cubic-bezier(.4,0,.2,1),
+                  transform .4s cubic-bezier(.4,0,.2,1);
     }
     .step.active {
       opacity: 1;
       pointer-events: all;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
     .step.exit {
       opacity: 0;
-      transform: translateY(-32px);
+      transform: translateY(-40px) scale(.98);
       pointer-events: none;
     }
 
     .step-inner {
       width: 100%;
-      max-width: 520px;
+      max-width: 500px;
       text-align: center;
     }
 
-    .step-num {
-      display: inline-block;
+    /* ─── Step label ─── */
+    .step-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--green);
-      margin-bottom: 1.5rem;
-      background: var(--green-light);
-      padding: 0.3rem 0.875rem;
-      border-radius: 100px;
+      margin-bottom: 1.75rem;
+    }
+    .step-label-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: .5;
     }
 
+    /* ─── Question ─── */
     .step-q {
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: clamp(1.875rem, 5.5vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.15;
       color: var(--text);
-      margin-bottom: 0.625rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+    .step-q em {
+      font-style: normal;
+      color: var(--green);
     }
 
     .step-hint {
-      font-size: 0.9375rem;
+      font-size: 1rem;
       color: var(--muted);
-      margin-bottom: 2rem;
-      line-height: 1.5;
+      margin-bottom: 2.25rem;
+      line-height: 1.6;
     }
 
-    /* ── Text input ── */
+    /* ─── Text input ─── */
+    .input-wrap { position: relative; margin-bottom: 1.5rem; }
     .step-input {
       width: 100%;
-      padding: 1rem 1.25rem;
+      padding: 1.0625rem 1.375rem;
       font-family: var(--font);
       font-size: 1.125rem;
+      font-weight: 500;
       color: var(--text);
-      background: #fff;
+      background: var(--surface);
       border: 2px solid var(--border);
-      border-radius: 10px;
+      border-radius: var(--radius);
       outline: none;
-      transition: border-color .2s;
+      transition: border-color .2s, box-shadow .2s;
       text-align: center;
-      margin-bottom: 1.25rem;
     }
-    .step-input:focus { border-color: var(--green); }
-    .step-input::placeholder { color: #B0BDBA; }
+    .step-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px var(--green-glow);
+    }
+    .step-input::placeholder { color: #B8C8C0; }
 
-    /* ── Choice buttons ── */
+    /* ─── Choice buttons ─── */
     .choices {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      gap: 0.625rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
     }
     .choice-btn {
       width: 100%;
-      padding: 0.9375rem 1.5rem;
-      background: #fff;
+      padding: 1rem 1.125rem;
+      background: var(--surface);
       border: 2px solid var(--border);
-      border-radius: 10px;
+      border-radius: var(--radius);
       font-family: var(--font);
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 500;
       color: var(--text);
       cursor: pointer;
-      text-align: left;
       display: flex;
       align-items: center;
       gap: 0.875rem;
-      transition: border-color .15s, background .15s, color .15s;
+      transition: border-color .18s, background .18s, transform .15s, box-shadow .18s;
+      position: relative;
     }
-    .choice-btn:hover { border-color: var(--green); background: var(--green-light); }
-    .choice-btn.selected { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
+    .choice-btn:hover {
+      border-color: var(--green);
+      background: var(--green-light);
+      transform: translateX(3px);
+    }
+    .choice-btn.selected {
+      border-color: var(--green);
+      background: var(--green-light);
+      transform: translateX(3px);
+      box-shadow: 0 0 0 4px var(--green-glow);
+    }
     .choice-key {
       flex-shrink: 0;
-      width: 26px;
-      height: 26px;
-      background: var(--border);
-      border-radius: 5px;
+      width: 28px;
+      height: 28px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.6875rem;
       font-weight: 700;
-      color: var(--muted);
-      transition: background .15s, color .15s;
+      color: var(--subtle);
+      transition: background .18s, border-color .18s, color .18s;
     }
-    .choice-btn.selected .choice-key { background: var(--green); color: #fff; }
+    .choice-btn.selected .choice-key {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+    .choice-check {
+      margin-left: auto;
+      width: 18px;
+      height: 18px;
+      opacity: 0;
+      transition: opacity .2s;
+      color: var(--green);
+    }
+    .choice-btn.selected .choice-check { opacity: 1; }
 
-    /* ── Continue button ── */
+    /* ─── Primary button ─── */
     .btn-next {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.9375rem 2rem;
-      background: var(--green);
+      justify-content: center;
+      gap: 0.625rem;
+      width: 100%;
+      padding: 1.0625rem 2rem;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
       color: #fff;
       font-family: var(--font);
       font-size: 1rem;
       font-weight: 700;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius);
       cursor: pointer;
-      transition: background .2s, transform .15s, opacity .2s;
+      transition: opacity .2s, transform .18s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(26,92,56,.25), 0 1px 3px rgba(26,92,56,.15);
       letter-spacing: 0.01em;
+      position: relative;
+      overflow: hidden;
     }
-    .btn-next:hover { background: var(--green-dark); transform: translateY(-1px); }
-    .btn-next:disabled { opacity: .45; cursor: not-allowed; transform: none; }
-    .btn-next svg { transition: transform .2s; }
-    .btn-next:hover svg { transform: translateX(3px); }
+    .btn-next::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
+    }
+    .btn-next:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,92,56,.3), 0 2px 6px rgba(26,92,56,.15);
+    }
+    .btn-next:active:not(:disabled) { transform: translateY(0); }
+    .btn-next:disabled {
+      opacity: .38;
+      cursor: not-allowed;
+    }
+    .btn-arrow {
+      transition: transform .2s;
+    }
+    .btn-next:hover:not(:disabled) .btn-arrow { transform: translateX(4px); }
 
-    /* ── Thank you ── */
-    .thankyou-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--green-light);
+    /* ─── Enter hint ─── */
+    .enter-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      color: var(--subtle);
+      margin-top: 0.875rem;
+    }
+    .enter-key {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--subtle);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    /* ─── Legal ─── */
+    .step-legal {
+      font-size: 0.75rem;
+      color: var(--subtle);
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* ─── Thank you ─── */
+    .ty-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--green-light), #D0E8D9);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 1.75rem;
+      margin: 0 auto 1.75rem;
+      font-size: 2rem;
+      box-shadow: 0 4px 20px var(--green-glow);
     }
-    .thankyou h2 {
+    .ty-name {
       font-size: clamp(1.75rem, 5vw, 2.5rem);
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text);
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.625rem;
     }
-    .thankyou p {
+    .ty-sub {
       font-size: 1rem;
       color: var(--muted);
       line-height: 1.65;
-      margin-bottom: 2rem;
+      margin-bottom: 0.75rem;
     }
+    .ty-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--border);
+      margin: 1.75rem auto;
+      border-radius: 2px;
+    }
+    .ty-upsell {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .ty-upsell strong { color: var(--text); font-weight: 600; }
     .btn-calendly {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 2rem;
-      background: var(--green);
+      justify-content: center;
+      gap: 0.625rem;
+      width: 100%;
+      padding: 1.0625rem 2rem;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
       color: #fff;
       font-family: var(--font);
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      border-radius: 10px;
+      border-radius: var(--radius);
       text-decoration: none;
-      transition: background .2s, transform .15s;
+      transition: transform .18s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(26,92,56,.25);
+      letter-spacing: 0.01em;
     }
-    .btn-calendly:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-calendly:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,92,56,.3);
+    }
     .btn-skip {
       display: block;
       margin-top: 1rem;
-      font-size: 0.875rem;
-      color: var(--muted);
-      text-decoration: none;
+      font-size: 0.8125rem;
+      color: var(--subtle);
       cursor: pointer;
+      text-decoration: none;
+      transition: color .2s;
     }
-    .btn-skip:hover { color: var(--text); }
+    .btn-skip:hover { color: var(--muted); }
+
+    /* ─── Floating proof ─── */
+    .float-proof {
+      position: fixed;
+      bottom: 4.5rem;
+      right: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      z-index: 90;
+      animation: floatIn .4s .8s ease both;
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .float-proof-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34A065;
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .6; transform: scale(.8); }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 480px) {
+      .nav-avatars, .nav-proof { display: none; }
+      .float-proof { display: none; }
+      .step-q { font-size: 1.75rem; }
+    }
+    @media (max-height: 640px) {
+      .stage-dots { display: none; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progress" style="width:0%"></div>
+  </div>
 
+  <!-- Nav -->
   <nav class="nav">
-    <span class="nav-brand">R<span>.</span>E Recrutement</span>
-    <span class="nav-step" id="nav-step"></span>
+    <div class="nav-brand">
+      R<span class="nav-dot">.</span>E Recrutement
+      <span class="nav-badge">Guide gratuit</span>
+    </div>
+    <div class="nav-right">
+      <div class="nav-proof">
+        <div class="nav-avatars">
+          <div class="nav-avatar">KB</div>
+          <div class="nav-avatar">LM</div>
+          <div class="nav-avatar">TR</div>
+          <div class="nav-avatar">+</div>
+        </div>
+        <span>500+ l'ont reçu</span>
+      </div>
+      <span class="nav-step-counter" id="nav-counter">1 / 4</span>
+    </div>
   </nav>
 
-  <div class="slider" id="slider">
+  <!-- Slider -->
+  <div class="slider">
 
-    <!-- STEP 1 — Prénom -->
+    <!-- ── Step 1 — Prénom ── -->
     <div class="step active" id="step-1">
       <div class="step-inner">
-        <span class="step-num">Guide gratuit</span>
-        <h1 class="step-q">Comment tu t'appelles ?</h1>
-        <p class="step-hint">Juste ton prénom pour personnaliser le guide.</p>
-        <input class="step-input" id="input-prenom" type="text" placeholder="Thomas" autocomplete="given-name" />
-        <br>
+        <div class="step-label"><span class="step-label-dot"></span>Guide frontalier Suisse</div>
+        <h1 class="step-q">Comment tu<br>t'appelles ?</h1>
+        <p class="step-hint">Juste ton prénom, pour personnaliser le guide.</p>
+        <div class="input-wrap">
+          <input class="step-input" id="input-prenom" type="text" placeholder="Thomas" autocomplete="given-name" />
+        </div>
         <button class="btn-next" id="btn-1" onclick="nextStep(1)">
           Continuer
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3.75 9h10.5M10.5 5.25L14.25 9l-3.75 3.75" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
+        <div class="enter-hint">
+          Appuie sur <span class="enter-key">↵ Entrée</span> pour continuer
+        </div>
       </div>
     </div>
 
-    <!-- STEP 2 — Situation -->
+    <!-- ── Step 2 — Situation ── -->
     <div class="step" id="step-2">
       <div class="step-inner">
-        <span class="step-num">Étape 2 sur 4</span>
-        <h2 class="step-q">Ta situation actuelle ?</h2>
+        <div class="step-label"><span class="step-label-dot"></span>Étape 2 sur 4</div>
+        <h2 class="step-q">Ta situation<br>en ce moment ?</h2>
         <p class="step-hint">Pour t'envoyer les informations les plus adaptées.</p>
         <div class="choices" id="choices-situation">
           <button class="choice-btn" onclick="selectChoice('situation', this, 'recherche')">
-            <span class="choice-key">A</span> En recherche active d'un poste en Suisse
+            <span class="choice-key">A</span>
+            En recherche active d'un poste en Suisse
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <button class="choice-btn" onclick="selectChoice('situation', this, 'emploi-france')">
-            <span class="choice-key">B</span> En CDI en France, j'explore
+            <span class="choice-key">B</span>
+            En CDI en France, j'explore mes options
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <button class="choice-btn" onclick="selectChoice('situation', this, 'curieux')">
-            <span class="choice-key">C</span> Juste curieux pour l'instant
+            <span class="choice-key">C</span>
+            Juste curieux pour l'instant
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
         </div>
         <button class="btn-next" id="btn-2" onclick="nextStep(2)" disabled>
           Continuer
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3.75 9h10.5M10.5 5.25L14.25 9l-3.75 3.75" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
       </div>
     </div>
 
-    <!-- STEP 3 — Région -->
+    <!-- ── Step 3 — Région ── -->
     <div class="step" id="step-3">
       <div class="step-inner">
-        <span class="step-num">Étape 3 sur 4</span>
-        <h2 class="step-q">Tu habites dans quelle région ?</h2>
-        <p class="step-hint">Les règles frontalières varient selon ta zone.</p>
+        <div class="step-label"><span class="step-label-dot"></span>Étape 3 sur 4</div>
+        <h2 class="step-q">Tu habites dans<br>quelle région ?</h2>
+        <p class="step-hint">Les règles frontalières varient selon ta zone géographique.</p>
         <div class="choices" id="choices-region">
           <button class="choice-btn" onclick="selectChoice('region', this, 'haute-savoie')">
-            <span class="choice-key">A</span> Haute-Savoie / Ain
+            <span class="choice-key">A</span>
+            Haute-Savoie / Ain — vers Genève
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <button class="choice-btn" onclick="selectChoice('region', this, 'doubs')">
-            <span class="choice-key">B</span> Doubs / Jura
+            <span class="choice-key">B</span>
+            Doubs / Jura — vers Lausanne, Neuchâtel
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <button class="choice-btn" onclick="selectChoice('region', this, 'alsace')">
-            <span class="choice-key">C</span> Alsace / Moselle
+            <span class="choice-key">C</span>
+            Alsace / Moselle — vers Bâle, Zurich
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <button class="choice-btn" onclick="selectChoice('region', this, 'autre')">
-            <span class="choice-key">D</span> Autre région / Je ne sais pas encore
+            <span class="choice-key">D</span>
+            Autre région / pas encore décidé
+            <svg class="choice-check" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
         </div>
         <button class="btn-next" id="btn-3" onclick="nextStep(3)" disabled>
           Continuer
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3.75 9h10.5M10.5 5.25L14.25 9l-3.75 3.75" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
       </div>
     </div>
 
-    <!-- STEP 4 — Email -->
+    <!-- ── Step 4 — Email ── -->
     <div class="step" id="step-4">
       <div class="step-inner">
-        <span class="step-num">Dernière étape</span>
-        <h2 class="step-q" id="step4-title">Où t'envoyer le guide ?</h2>
-        <p class="step-hint">Tu le reçois immédiatement dans ta boîte mail.</p>
-        <input class="step-input" id="input-email" type="email" placeholder="thomas@gmail.com" autocomplete="email" />
-        <br>
+        <div class="step-label"><span class="step-label-dot"></span>Dernière étape</div>
+        <h2 class="step-q" id="step4-title">Où t'envoyer<br>le guide ?</h2>
+        <p class="step-hint">Tu le reçois immédiatement. Zéro spam, désinscription en 1 clic.</p>
+        <div class="input-wrap">
+          <input class="step-input" id="input-email" type="email" placeholder="ton@email.com" autocomplete="email" />
+        </div>
         <button class="btn-next" id="btn-4" onclick="submitForm()">
-          Recevoir le guide →
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Recevoir le guide gratuitement
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3.75 9h10.5M10.5 5.25L14.25 9l-3.75 3.75" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
-        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.875rem;">Zéro spam · Désinscription en 1 clic</p>
+        <div class="enter-hint">
+          Appuie sur <span class="enter-key">↵ Entrée</span> pour valider
+        </div>
+        <p class="step-legal">En t'inscrivant, tu acceptes de recevoir le guide + des conseils par email.<br>Désinscription en 1 clic à tout moment.</p>
       </div>
     </div>
 
-    <!-- STEP 5 — Thank you -->
+    <!-- ── Step 5 — Thank you ── -->
     <div class="step" id="step-5">
       <div class="step-inner">
-        <div class="thankyou">
-          <div class="thankyou-icon">✓</div>
-          <h2 id="ty-title">C'est dans ta boîte !</h2>
-          <p id="ty-sub">Vérifie tes emails (et le dossier spam).<br>Le guide arrive dans les prochaines minutes.</p>
-          <p style="font-size:0.875rem;color:var(--muted);margin-bottom:2rem;">Tu veux aller plus loin ? Réserve une session de 45 min avec moi pour un plan d'action personnalisé.</p>
-          <a href="https://calendly.com/esprraphael/strategie-de-reussite-en-tant-que-frontalier-suisse"
-             target="_blank" rel="noopener" class="btn-calendly">
-            Réserver ma session diagnostic — 40 CHF
-          </a>
-          <a class="btn-skip" href="https://site-frontalier.vercel.app">Non merci, le guide me suffit</a>
-        </div>
+        <div class="ty-icon">✓</div>
+        <h2 class="ty-name" id="ty-title">Le guide est envoyé !</h2>
+        <p class="ty-sub" id="ty-sub">Vérifie ta boîte mail (et le dossier spam).<br>Il arrive dans les prochaines minutes.</p>
+
+        <div class="ty-divider"></div>
+
+        <p class="ty-upsell">
+          Tu veux aller plus loin ? Réserve une <strong>session diagnostic de 45 min</strong> avec moi — on fait le point sur ton profil et tu repars avec un plan d'action concret.
+        </p>
+        <a href="https://calendly.com/esprraphael/strategie-de-reussite-en-tant-que-frontalier-suisse"
+           target="_blank" rel="noopener" class="btn-calendly">
+          Réserver ma session — 40 CHF
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a class="btn-skip" href="https://site-frontalier.vercel.app">
+          Non merci, le guide me suffit →
+        </a>
       </div>
     </div>
 
   </div>
 
-  <script>
-    const API = 'https://raphbrain.duckdns.org/api';
-    const TOTAL_STEPS = 4;
-    let current = 1;
-    const answers = { prenom: '', situation: '', region: '', email: '' };
+  <!-- Stage dots -->
+  <div class="stage-dots" id="stage-dots">
+    <div class="stage-dot active" data-step="1"></div>
+    <div class="stage-dot" data-step="2"></div>
+    <div class="stage-dot" data-step="3"></div>
+    <div class="stage-dot" data-step="4"></div>
+  </div>
 
-    // ── Progress ──
-    function updateProgress(step) {
-      const pct = ((step - 1) / TOTAL_STEPS) * 100;
-      document.getElementById('progress-bar').style.width = pct + '%';
-      if (step <= TOTAL_STEPS) {
-        document.getElementById('nav-step').textContent = step + ' / ' + TOTAL_STEPS;
-      } else {
-        document.getElementById('nav-step').textContent = '';
-      }
+  <!-- Floating social proof -->
+  <div class="float-proof">
+    <div class="float-proof-dot"></div>
+    <span><strong>500+</strong> frontaliers l'ont déjà reçu</span>
+  </div>
+
+  <script>
+    const API_URL = 'https://raphbrain.duckdns.org/api';
+    const TOTAL = 4;
+    let current = 1;
+    const data = { prenom: '', situation: '', region: '', email: '' };
+
+    function updateUI(step) {
+      // Progress bar
+      const pct = Math.round(((step - 1) / TOTAL) * 100);
+      document.getElementById('progress').style.width = pct + '%';
+      // Counter
+      document.getElementById('nav-counter').textContent =
+        step <= TOTAL ? step + ' / ' + TOTAL : '';
+      // Dots
+      document.querySelectorAll('.stage-dot').forEach(d => {
+        const s = parseInt(d.dataset.step);
+        d.className = 'stage-dot' + (s < step ? ' done' : s === step ? ' active' : '');
+      });
     }
 
-    // ── Transition ──
     function goTo(next) {
       const curr = document.getElementById('step-' + current);
       curr.classList.remove('active');
       curr.classList.add('exit');
-      setTimeout(() => { curr.classList.remove('exit'); }, 400);
+      setTimeout(() => curr.classList.remove('exit'), 450);
       current = next;
-      updateProgress(next);
+      updateUI(next);
       setTimeout(() => {
-        const nextEl = document.getElementById('step-' + next);
-        nextEl.classList.add('active');
-        // Auto-focus input if present
-        const inp = nextEl.querySelector('.step-input');
-        if (inp) inp.focus();
-      }, 60);
+        const el = document.getElementById('step-' + next);
+        el.classList.add('active');
+        const inp = el.querySelector('.step-input');
+        if (inp) setTimeout(() => inp.focus(), 50);
+      }, 80);
     }
 
-    // ── Next step logic ──
     function nextStep(step) {
       if (step === 1) {
-        const val = document.getElementById('input-prenom').value.trim();
-        if (!val) { document.getElementById('input-prenom').focus(); return; }
-        answers.prenom = val;
-        // Personalise step 4 title
-        document.getElementById('step4-title').textContent = val + ', où t\'envoyer le guide ?';
-        document.getElementById('ty-title').textContent = 'C\'est parti, ' + val + ' !';
+        const v = document.getElementById('input-prenom').value.trim();
+        if (!v) { document.getElementById('input-prenom').focus(); shake('input-prenom'); return; }
+        data.prenom = v;
+        document.getElementById('step4-title').innerHTML = v + ', où t\'envoyer<br>le guide ?';
+        document.getElementById('ty-title').textContent = 'C\'est parti, ' + v + ' !';
+        document.getElementById('ty-sub').innerHTML =
+          'Vérifie ta boîte mail (et le dossier spam).<br>Il arrive dans les prochaines minutes.';
         goTo(2);
       } else if (step === 2) {
-        if (!answers.situation) return;
+        if (!data.situation) return;
         goTo(3);
       } else if (step === 3) {
-        if (!answers.region) return;
+        if (!data.region) return;
         goTo(4);
       }
     }
 
-    // ── Choice selection ──
     function selectChoice(key, el, value) {
-      const group = el.closest('.choices');
-      group.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      el.closest('.choices').querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
       el.classList.add('selected');
-      answers[key] = value;
-      // Enable next button
-      const btnMap = { situation: 'btn-2', region: 'btn-3' };
-      if (btnMap[key]) document.getElementById(btnMap[key]).disabled = false;
-      // Auto-advance after short delay
+      data[key] = value;
+      const map = { situation: 'btn-2', region: 'btn-3' };
+      if (map[key]) document.getElementById(map[key]).disabled = false;
+      // Auto-advance
       setTimeout(() => {
         if (key === 'situation') nextStep(2);
         else if (key === 'region') nextStep(3);
-      }, 320);
+      }, 350);
     }
 
-    // ── Submit ──
     async function submitForm() {
       const email = document.getElementById('input-email').value.trim();
       if (!email || !email.includes('@')) {
+        shake('input-email');
         document.getElementById('input-email').focus();
         return;
       }
-      answers.email = email;
+      data.email = email;
       const btn = document.getElementById('btn-4');
       btn.disabled = true;
-      btn.innerHTML = 'Envoi en cours...';
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="animation:spin .7s linear infinite"><path d="M9 3a6 6 0 1 1 0 12A6 6 0 0 1 9 3z" stroke="rgba(255,255,255,.3)" stroke-width="2"/><path d="M9 3a6 6 0 0 1 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Envoi en cours...';
+
       try {
-        await fetch(API + '/subscribe', {
+        await fetch(API_URL + '/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: answers.email,
-            prenom: answers.prenom,
-            source: 'guide-linkedin-' + answers.situation,
-          }),
+          body: JSON.stringify({ email: data.email, prenom: data.prenom, source: 'guide-linkedin-' + data.situation }),
         });
-      } catch(e) { /* silent — on affiche quand même le merci */ }
-      // Progress to 100% then thank you
-      document.getElementById('progress-bar').style.width = '100%';
+      } catch (e) { /* silent */ }
+
+      document.getElementById('progress').style.width = '100%';
+      document.getElementById('nav-counter').textContent = '';
+      document.getElementById('stage-dots').style.display = 'none';
       goTo(5);
     }
 
-    // ── Keyboard nav ──
-    document.addEventListener('keydown', (e) => {
+    function shake(id) {
+      const el = document.getElementById(id);
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = 'shake .4s ease';
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         if (current === 1) nextStep(1);
         else if (current === 4) submitForm();
       }
-      // Keyboard shortcuts for choices (A, B, C, D)
       if (current === 2) {
-        const map = { a: 0, b: 1, c: 2 };
-        const idx = map[e.key.toLowerCase()];
-        if (idx !== undefined) {
-          const btns = document.querySelectorAll('#choices-situation .choice-btn');
-          if (btns[idx]) btns[idx].click();
-        }
+        const m = { a: 0, b: 1, c: 2 };
+        const i = m[e.key.toLowerCase()];
+        if (i !== undefined) document.querySelectorAll('#choices-situation .choice-btn')[i]?.click();
       }
       if (current === 3) {
-        const map = { a: 0, b: 1, c: 2, d: 3 };
-        const idx = map[e.key.toLowerCase()];
-        if (idx !== undefined) {
-          const btns = document.querySelectorAll('#choices-region .choice-btn');
-          if (btns[idx]) btns[idx].click();
-        }
+        const m = { a: 0, b: 1, c: 2, d: 3 };
+        const i = m[e.key.toLowerCase()];
+        if (i !== undefined) document.querySelectorAll('#choices-region .choice-btn')[i]?.click();
       }
     });
 
-    // ── Init ──
-    updateProgress(1);
+    // Init
+    updateUI(1);
     document.getElementById('input-prenom').focus();
   </script>
+
+  <style>
+    @keyframes spin  { to { transform: rotate(360deg); } }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%  { transform: translateX(-6px); }
+      40%  { transform: translateX(6px); }
+      60%  { transform: translateX(-4px); }
+      80%  { transform: translateX(4px); }
+    }
+  </style>
 
 </body>
 </html>
